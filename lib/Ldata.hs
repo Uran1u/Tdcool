@@ -2,7 +2,7 @@ module Ldata (
     -- Tipos básicos
     Posicao, Velocidade, Tempo,
     -- Tipos do jogo
-    Torre(..), Inimigo(..), Projetil(..), Mapa(..), Jogo(..),
+    Torre(..), Inimigo(..), Projetil(..), Mapa(..), Jogo(..),Bloco(..),
     -- Funções auxiliares
     distancia, gravidade
 ) where
@@ -50,8 +50,18 @@ data Projetil =
 -- | Representa o mapa do jogo.
 data Mapa =
   Mapa
-    { caminho :: [Posicao] -- Lista de posições que formam o caminho dos inimigos
+    { spawnPoint  :: Posicao        -- ^ Posição inicial dos inimigos
+    , endPoint    :: Posicao        -- ^ Posição final que os inimigos devem alcançar
+    , grid        :: [[Bloco]]      -- ^ Representação do mapa em uma matriz de blocos
     }
+  deriving (Eq, Read, Show)
+
+  -- | Tipos de blocos no mapa.
+data Bloco
+  = Ca      -- ^ Caminho por onde os inimigos se movem
+  | Te         -- ^ Posição onde pode ser construída uma torre
+  | Ob      -- ^ Obstáculo que impede o movimento
+  | V         -- ^ Espaço vazio
   deriving (Eq, Read, Show)
 
 -- | Representa o estado do jogo.
