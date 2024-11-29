@@ -29,7 +29,3 @@ colisaoProjetilInimigo Projetil Inimigo =
 inimigoNaBase :: Mapa -> Inimigo -> Bool
 inimigoNaBase mapa Inimigo = 
     distancia (posicaoInimigo Inimigo) (endPoint mapa) < 0.1
-
--- | Verifica se dois projéteis colidem.
-colisaoProjetilProjetil :: Projetil -> Projetil -> Bool
-colisaoProjetilProjetil = 
