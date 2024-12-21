@@ -2,7 +2,7 @@ module Ldata (
     -- Tipos básicos
     Posicao, Velocidade, Tempo,
     -- Tipos do jogo
-    Torre(..), Inimigo(..), Projetil(..), Mapa(..), Jogo(..),Bloco(..),
+    Torre(..), TipoTorre(..), Inimigo(..), Projetil(..), Mapa(..), GameState(..),Bloco(..),
     -- Funções auxiliares
     distancia, gravidade
 ) where
@@ -19,16 +19,22 @@ type Velocidade = (Double, Double)
 type Tempo = Double
 
 -- | Representa uma torre no jogo.
+
+data TipoTorre = Fogo | Gelo | Relampago | Area | SingleTarget
+  deriving (Eq, Show)
+
+
 data Torre =
   Torre
     { posicaoTorre  :: Posicao
+    , tipoTorre     :: TipoTorre  -- Tipo da torre
     , alcance       :: Double
     , dano          :: Int
     , recarga       :: Tempo -- Tempo entre disparos
     }
   deriving (Eq, Read, Show)
 
--- | Representa um inimigo no jogo.
+
 data Inimigo =
   Inimigo
     { posicaoInimigo :: Posicao
@@ -58,20 +64,26 @@ data Mapa =
 
   -- | Tipos de blocos no mapa.
 data Bloco
-  = Ca      -- ^ Caminho por onde os inimigos se movem
-  | Te         -- ^ Posição onde pode ser construída uma torre
-  | Ob      -- ^ Obstáculo que impede o movimento
+  = C      -- ^ Caminho por onde os inimigos se movem
+  | T         -- ^ Posição onde pode ser construída uma torre
+  | O      -- ^ Obstáculo que impede o movimento
   | V         -- ^ Espaço vazio
+  | S
+  | E
   deriving (Eq, Read, Show)
 
 -- | Representa o estado do jogo.
-data Jogo =
-  Jogo
+data GameState =
+  GameState
     { mapa      :: Mapa
     , torres    :: [Torre]
     , inimigos  :: [Inimigo]
     , projeteis :: [Projetil]
     , baseVida  :: Int -- Vida restante da base
+    , playerPosition :: (Float, Float)
+    , playerVelocity :: (Float, Float)
+    , mousepos :: (Float, Float)
+    , 
     }
   deriving (Eq, Read, Show)
 

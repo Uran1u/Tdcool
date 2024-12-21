@@ -9,6 +9,19 @@ module L3 where
 
 import Ldata
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- | Atualiza a posição de um inimigo no caminho do mapa.
 moverInimigo :: Mapa -> Tempo -> Inimigo -> Inimigo
 moverInimigo = undefined
